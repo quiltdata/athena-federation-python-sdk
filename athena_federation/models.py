@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 import pyarrow as pa
-from athena.federation.utils import AthenaSDKUtils
+from athena_federation.utils import AthenaSDKUtils
 
 # https://github.com/awslabs/aws-athena-query-federation/blob/master/athena-federation-sdk/src/main/java/com/amazonaws/athena/connector/lambda/handlers/FederationCapabilities.java#L33
 CAPABILITIES = 23

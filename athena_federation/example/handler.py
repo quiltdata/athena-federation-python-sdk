@@ -1,7 +1,7 @@
 import json
 import os
 
-from athena.federation.lambda_handler import AthenaLambdaHandler
+from athena_federation.lambda_handler import AthenaLambdaHandler
 from sample_data_source import SampleDataSource
 
 # This needs to be a valid bucket that the Lambda function role has access to

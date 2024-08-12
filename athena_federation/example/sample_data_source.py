@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Mapping
 
 import pyarrow as pa
-from athena.federation.athena_data_source import AthenaDataSource
+from athena_federation.athena_data_source import AthenaDataSource
 
 
 class SampleDataSource(AthenaDataSource):

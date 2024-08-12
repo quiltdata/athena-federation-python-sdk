@@ -15,6 +15,7 @@ You can see an example implementation that [queries Google Sheets using Athena](
 - Partitions are not supported, so Athena will not parallelize the query using partitions.
 
 ## Example Implementations
+
 - [Athena data source connector for Minio](https://github.com/Proximie/athena-connector-for-minio/)
 
 ## Local Development
@@ -144,7 +145,6 @@ aws iam attach-role-policy \
     --policy-arn arn:aws:iam::${AWS_ACCOUNT_ID}:policy/athena-example-s3-access
 ```
 
-
 6. Now create your function pointing to the created repository image
 
 ```shell
@@ -158,7 +158,7 @@ aws lambda create-function \
     --package-type Image
 ```
 
-## Connect with Athena!
+## Connect with Athena
 
 1. Choose "Data sources" on the top navigation bar in the Athena console and then click "Connect data source"
 

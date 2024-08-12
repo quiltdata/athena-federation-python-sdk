@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-import athena.federation.models as models
+import athena_federation.models as models
 
 
 class AthenaFederationSDK(ABC):
