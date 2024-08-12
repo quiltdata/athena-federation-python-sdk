@@ -92,7 +92,9 @@ class AthenaLambdaHandler(AthenaFederationSDK):
 
     ## END: Unimplmented placehodlders
 
-    def ReadRecordsRequest(self) -> Union[models.ReadRecordsResponse, models.RemoteReadRecordsResponse]:
+    def ReadRecordsRequest(
+        self,
+    ) -> Union[models.ReadRecordsResponse, models.RemoteReadRecordsResponse]:
         schema = AthenaSDKUtils.parse_encoded_schema(self.event["schema"]["schema"])
         database_name = self.event.get("tableName").get("schemaName")
         table_name = self.event.get("tableName").get("tableName")
