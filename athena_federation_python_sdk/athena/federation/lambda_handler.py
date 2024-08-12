@@ -1,8 +1,8 @@
+import athena.federation.models as models
+from athena.federation.athena_data_source import AthenaDataSource
 from athena.federation.batch_writer import BatchWriter
 from athena.federation.sdk import AthenaFederationSDK
-from athena.federation.athena_data_source import AthenaDataSource
 from athena.federation.utils import AthenaSDKUtils
-import athena.federation.models as models
 
 
 class AthenaLambdaHandler(AthenaFederationSDK):

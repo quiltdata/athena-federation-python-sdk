@@ -22,7 +22,7 @@ class AthenaFederationSDK(ABC):
     @abstractmethod
     def PingRequest(self) -> models.PingResponse:
         """
-        Return metadata about the data connector. 
+        Return metadata about the data connector.
 
         This is used by Athena to verify the Lambda function is accessible.
         """
