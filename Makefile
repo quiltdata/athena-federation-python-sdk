@@ -8,7 +8,7 @@ update:
 
 # Run project tests
 test:
-	poetry run pytest
+	poetry run pytest --cov-report xml --cov=athena_federation
 
 # Lint code using flake8
 lint:

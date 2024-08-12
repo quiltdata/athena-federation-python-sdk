@@ -30,4 +30,6 @@ filterwarnings = [
     "error",
     # change in Python 3.12 beta causes warning from inside pytest
     "ignore:ast:DeprecationWarning",
+    "ignore:attribute:DeprecationWarning",
+
 ]
