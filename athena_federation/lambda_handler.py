@@ -1,3 +1,4 @@
+from typing import Union
 import athena_federation.models as models
 from athena_federation.athena_data_source import AthenaDataSource
 from athena_federation.batch_writer import BatchWriter
@@ -91,7 +92,7 @@ class AthenaLambdaHandler(AthenaFederationSDK):
 
     ## END: Unimplmented placehodlders
 
-    def ReadRecordsRequest(self) -> models.ReadRecordsResponse:
+    def ReadRecordsRequest(self) -> Union[models.ReadRecordsResponse, models.RemoteReadRecordsResponse]:
         schema = AthenaSDKUtils.parse_encoded_schema(self.event["schema"]["schema"])
         database_name = self.event.get("tableName").get("schemaName")
         table_name = self.event.get("tableName").get("tableName")

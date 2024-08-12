@@ -104,6 +104,8 @@ class GetTableLayoutResponse:
         """
         Encodes the schema and each record in the partition config.
         """
+        if not self.partitions:
+            return {}
         partition_keys = self.partitions.keys()
         data = [pa.array(self.partitions[key]) for key in partition_keys]
         batch = pa.RecordBatch.from_arrays(data, list(partition_keys))
