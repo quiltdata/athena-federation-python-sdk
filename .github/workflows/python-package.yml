@@ -38,11 +38,6 @@ jobs:
       run: |
         poetry --version
         poetry install
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::712023778557:role/github/GitHub-Testing-Federation
-        aws-region: us-east-1
     - name: Test with pytest
       run: |
         make test TEST_OS=${{ matrix.os }}
