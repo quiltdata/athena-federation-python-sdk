@@ -1,4 +1,4 @@
-.PHONY : help install update test lint clean build publish
+.PHONY : help install update test lint clean build publish all
 
 # Install project dependencies
 install:
