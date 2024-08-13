@@ -14,6 +14,10 @@ update:
 test:
 	poetry run pytest --cov-report xml --cov=athena_federation
 
+
+watch:
+	poetry run ptw . --now
+
 # Lint code using flake8
 lint:
 	black .

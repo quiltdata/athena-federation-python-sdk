@@ -2,10 +2,10 @@ import json
 import os
 
 from athena_federation.lambda_handler import AthenaLambdaHandler
-from sample_data_source import SampleDataSource
+from .sample_data_source import SampleDataSource
 
 # This needs to be a valid bucket that the Lambda function role has access to
-spill_bucket = os.environ["TARGET_BUCKET"]
+spill_bucket = os.environ.get("SPILL_BUCKET", "quilt-example")
 
 example_handler = AthenaLambdaHandler(
     data_source=SampleDataSource(), spill_bucket=spill_bucket
