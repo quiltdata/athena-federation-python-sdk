@@ -15,13 +15,14 @@ You can see an example implementation that [queries Google Sheets using Athena](
 - Partitions are not supported, so Athena will not parallelize the query using partitions.
 
 ## Example Implementations
+
 - [Athena data source connector for Minio](https://github.com/Proximie/athena-connector-for-minio/)
 
 ## Local Development
 
 - Ensure you've got the `build` module install and SDK dependencies.
 
-```
+```shell
 pip install build
 pip install -r requirements.txt
 ```
@@ -32,12 +33,12 @@ pip install -r requirements.txt
 python -m build
 ```
 
-This will create a file in `dist/`: `dist/unoffical_athena_federation_sdk-0.0.0-py3-none-any.whl`
+This will create a file in `dist/`: `dist/athena_federation-0.1.0-py3-none-any.whl`
 
 Copy that file to your example repo and you can include it in your `requirements.txt` like so:
 
-```
-unoffical-athena-federation-sdk @ file:///unoffical_athena_federation_sdk-0.0.0-py3-none-any.whl
+```shell
+unoffical-athena-federation-sdk @ file:///athena_federation-0.1.0-py3-none-any.whl
 ```
 
 ## Validating your connector
@@ -75,7 +76,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 
 💁 _Please note these are manual instructions until a [serverless application](https://aws.amazon.com/serverless/serverlessrepo/) can be built._
 
-0. First, let's define some variables we need throughout.
+1. First, let's define some variables we need throughout.
 
 ```shell
 export SPILL_BUCKET=<BUCKET_NAME>
@@ -90,13 +91,13 @@ export IMAGE_TAG=v0.0.1
 aws s3 mb ${SPILL_BUCKET}
 ```
 
-2. Create an ECR repository for this image
+1. Create an ECR repository for this image
 
 ```shell
 aws ecr create-repository --repository-name athena_example --image-scanning-configuration scanOnPush=true
 ```
 
-3. Push tag the image with the repo name and push it up
+1. Push tag the image with the repo name and push it up
 
 ```shell
 docker tag local/athena-python-example ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/athena_example:${IMAGE_TAG}
@@ -104,7 +105,7 @@ aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_
 docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/athena_example:${IMAGE_TAG}
 ```
 
-4. Create an IAM role that will allow your Lambda function to execute
+1. Create an IAM role that will allow your Lambda function to execute
 
 _Note the `Arn` of the role that's returned_
 
@@ -117,7 +118,7 @@ aws iam attach-role-policy \
     --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 ```
 
-5. Grant the IAM role access to your S3 bucket
+1. Grant the IAM role access to your S3 bucket
 
 ```shell
 aws iam create-policy --policy-name athena-example-s3-access --policy-document '{
@@ -144,8 +145,7 @@ aws iam attach-role-policy \
     --policy-arn arn:aws:iam::${AWS_ACCOUNT_ID}:policy/athena-example-s3-access
 ```
 
-
-6. Now create your function pointing to the created repository image
+1. Now create your function pointing to the created repository image
 
 ```shell
 aws lambda create-function \
@@ -158,15 +158,11 @@ aws lambda create-function \
     --package-type Image
 ```
 
-## Connect with Athena!
+## Connect with Athena
 
 1. Choose "Data sources" on the top navigation bar in the Athena console and then click "Connect data source"
 
-![](docs/athena_connect.png)
-
-2. Choose the Lambda function you just created and click `Connect`!
-
-![](docs/athena_connect_lambda.png)
+1. Choose the Lambda function you just created and click `Connect`!
 
 ## Updating the Lambda function
 
