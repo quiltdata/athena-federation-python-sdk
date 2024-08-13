@@ -35,7 +35,6 @@ class AthenaLambdaHandler(AthenaFederationSDK):
         # Look up the request type, call it dynamically, and return the dictionary representation of it.
         # Each model returned implements `as_dict` that returns the info necessary for Athena, including
         # specific PyArrow serialization.
-        print(dir(self))
         request_attr = getattr(self, request_type)
         if request_attr:
             return request_attr().as_dict()
