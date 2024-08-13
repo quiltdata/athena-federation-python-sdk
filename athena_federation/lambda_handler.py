@@ -27,7 +27,7 @@ class AthenaLambdaHandler(AthenaFederationSDK):
         # Populate attributes needed to process the event
         self.event = event
         self.catalog_name = self.event.get("catalogName")
-        request_type = self.event.get("@type") or "csv"
+        request_type = self.event.get("@type") or "PingRequest"
 
         # TODO: As the event comes in, populate the database name, table name if provided.
         # TODO: I can also create new Request types from the event
@@ -35,9 +35,10 @@ class AthenaLambdaHandler(AthenaFederationSDK):
         # Look up the request type, call it dynamically, and return the dictionary representation of it.
         # Each model returned implements `as_dict` that returns the info necessary for Athena, including
         # specific PyArrow serialization.
-        response = getattr(self, request_type)()
-        if response:
-            return response.as_dict()
+        print(dir(self))
+        request_attr = getattr(self, request_type)
+        if request_attr:
+            return request_attr().as_dict()
         else:
             print(f"Unknown request type: {request_type}")
             return {}
