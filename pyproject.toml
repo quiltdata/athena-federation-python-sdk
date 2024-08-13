@@ -14,6 +14,7 @@ python = "~3.12"
 pyarrow = "17.0.0"
 smart-open = "7.0.4"
 importlib-metadata = "<5.0.0"
+pytest-watcher = "^0.4.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
@@ -31,5 +32,4 @@ filterwarnings = [
     # change in Python 3.12 beta causes warning from inside pytest
     "ignore:ast:DeprecationWarning",
     "ignore:attribute:DeprecationWarning",
-
 ]
