@@ -1,5 +1,4 @@
 from .handler import lambda_handler
-import pytest
 
 TABLE_DEF = {"tableName": "demo", "schemaName": "sampledb"}
 
@@ -76,6 +75,9 @@ def test_GetTableRequest():
     assert result
     assert result["@type"] == "GetTableResponse"
     assert result["requestType"] == "GET_TABLE"
+    schema = result["schema"]
+    assert schema
+    assert "AAAA" in schema["schema"]
 
 
 def test_GetTableLayoutRequest():
@@ -114,42 +116,48 @@ def test_GetSplitsRequest():
     assert loc["bucket"] == "quilt-example"
     assert "athena-spill" in loc["key"]
     assert loc["directory"]
-    assert split["properties"] == {'name': 'split1', 'action': 'normal'}
+    assert split["properties"] == {"name": "split1", "action": "normal"}
 
     split1 = splits[1]
     loc1 = split1["spillLocation"]
     assert loc1["bucket"] == "quilt-example"
     assert "athena-spill" in loc1["key"]
     assert loc1["directory"]
-    assert split1["properties"] == {'name': 'split2', 'action': 'spill'}
+    assert split1["properties"] == {"name": "split2", "action": "spill"}
 
 
-@pytest.mark.skip
 def test_ReadRecordsRequest():
-    result = lambda_handler(
+    table = lambda_handler(
         {
-            "@type": "ReadRecordsRequest",
+            "@type": "GetTableRequest",
             "catalogName": "athena_python_sdk",
-            "schema": {
-                "schema": "request_timestamp:timestamp,elb_name:string,request_ip:string"
-            },
-            "tableName": {"schemaName": "sampledb", "tableName": "demo"},
-            "split": {
-                "spillLocation": {
-                    "bucket": "quilt-example",
-                    "key": "athena-spill",
-                    "directory": True,
-                },
-                "properties": {"name": "split1", "action": "normal"},
-            },
+            "tableName": TABLE_DEF,
         },
         {},
     )
+    source = lambda_handler(
+        {
+            "@type": "GetSplitsRequest",
+            "catalogName": "athena_python_sdk",
+            "tableName": TABLE_DEF,
+        },
+        {},
+    )
+    assert source
+    source["@type"] = "ReadRecordsRequest"
+    source["tableName"] = TABLE_DEF
+    source["schema"] = table["schema"]
+    source["split"] = source["splits"][0]
+    result = lambda_handler(
+        source,
+        {},
+    )
     assert result
-    assert result["@type"] == "RemoteReadRecordsResponse"
+    assert result["@type"] == "ReadRecordsResponse"
     assert result["requestType"] == "READ_RECORDS"
-    assert "schema" in result
-    assert "spillLocation" in result
     assert "records" in result
-    assert len(result["records"]) == 2
-    assert result["records"][0]
+    records = result["records"]
+    assert len(records) == 3
+    assert "aId" in records
+    assert "schema" in records
+    assert "records" in records
