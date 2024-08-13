@@ -1,5 +1,7 @@
 .PHONY : help install update test lint clean build publish all
 
+all: test
+
 # Install project dependencies
 install:
 	poetry install
@@ -22,7 +24,7 @@ clean:
 	poetry run rm -rf dist build
 
 # Build project distribution
-build:
+build: lint
 	poetry build
 
 # Publish project to PyPI
