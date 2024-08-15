@@ -68,6 +68,7 @@ class AthenaLambdaHandler(AthenaFederationSDK):
         )
 
     ## BEGIN: Placeholder methods for partition pruning/splits and spill requests
+    ## Called `getPartitions(BlockWriter blockWriter, GetTableLayoutRequest request)` in Java SDK`
     def GetTableLayoutRequest(self) -> models.GetTableLayoutResponse:
         # The partition schema above was reused from CloudTrail example - we need to
         # add (also?) the schema we want to pass back in a split?
@@ -97,6 +98,7 @@ class AthenaLambdaHandler(AthenaFederationSDK):
 
     ## END: Unimplmented placehodlders
 
+    ## Called `readWithConstraint(BlockWriter blockWriter, ReadRecordsRequest request)` in Java SDK
     def ReadRecordsRequest(
         self,
     ) -> Union[models.ReadRecordsResponse, models.RemoteReadRecordsResponse]:
