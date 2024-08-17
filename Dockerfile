@@ -13,8 +13,13 @@ ENV POETRY_NO_INTERACTION=1 \
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock ./
+RUN touch README.md
+
+
+RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 COPY athena_federation ./athena_federation
 
-RUN poetry install --without dev && rm -rf $POETRY_CACHE_DIR
+# Only needed if you, e.g., install a script
+RUN poetry install --without dev 
 
 ENTRYPOINT ["poetry", "run", "python", "-m", "athena_federation.main"]
