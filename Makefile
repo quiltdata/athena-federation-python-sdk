@@ -50,6 +50,7 @@ docker-status:
 # Build Docker image
 docker-build:
 	docker build -t $(PROJ) .
+	docker images | grep $(PROJ)
 
 docker-debug:
 	docker build -t $(PROJ) . --no-cache --build-arg DEBUG=true
@@ -60,7 +61,7 @@ docker-poetry-config:
 
 # Run Docker container
 
-docker-run: docker-build
+docker-run: 
 	docker run -it -p $(PORT):$(PORT) $(PROJ)
 
 # Run Docker container in detached mode
