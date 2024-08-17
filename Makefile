@@ -1,4 +1,6 @@
 .PHONY : help install update test lint clean build publish all
+PORT = 6000
+PROJ = athena_federation
 
 all: test
 
@@ -47,23 +49,24 @@ docker-status:
 
 # Build Docker image
 docker-build:
-	docker build -t athena-federation .
+	docker build -t $(PROJ) .
 
 docker-debug:
-	docker build -t athena-federation . --no-cache --build-arg DEBUG=true
+	docker build -t $(PROJ) . --no-cache --build-arg DEBUG=true
 
+# One blog post claims this is necessary to get poetry to work in a docker container
 docker-poetry-config:
 	poetry config virtualenvs.in-project true --local
 
 # Run Docker container
 
 docker-run: docker-build
-	docker run -it -p 5000:5000 athena-federation
+	docker run -it -p $(PORT):$(PORT) $(PROJ)
 
 # Run Docker container in detached mode
 
 docker-detached:
-	docker run -d -p 5000:5000 athena-federation
+	docker run -d -p $(PORT):$(PORT) $(PROJ)
 
 # Stop Docker container
 

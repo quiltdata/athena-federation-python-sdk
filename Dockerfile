@@ -23,6 +23,6 @@ RUN pip install --no-cache-dir /athena_federation-*-py3-none-any.whl
 
 WORKDIR /app
 ENV PATH="/app/.venv/bin:$PATH"
-RUN ls ./
+RUN ls -R ./
 
-CMD ["pytest"]
+# CMD [ "tests.handler.lambda_handler" ]
