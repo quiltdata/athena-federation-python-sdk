@@ -1,5 +1,5 @@
 .PHONY : help install update test lint clean build publish all
-PORT = 6000
+PORT = 9000
 PROJ = athena_federation
 
 all: test

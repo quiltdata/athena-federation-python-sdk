@@ -23,4 +23,4 @@ COPY athena_federation ./athena_federation
 # Only needed if you, e.g., install a script
 RUN poetry install --without dev 
 
-ENTRYPOINT ["poetry", "run", "python", "-m", "tests.handler.lambda_handler"]
+ENTRYPOINT ["poetry", "run", "python", "-m", "athena_federation.lambda_handler"]
