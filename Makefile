@@ -61,7 +61,7 @@ docker-poetry-config:
 
 # Run Docker container
 
-docker-run: 
+docker-run: docker-build
 	docker run -it -p $(PORT):$(PORT) $(PROJ)
 
 # Run Docker container in detached mode

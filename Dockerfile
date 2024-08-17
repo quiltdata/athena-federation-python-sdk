@@ -5,7 +5,10 @@ FROM python:3.12.5-slim-bookworm AS build
 # Get ready to build
 RUN pip install --no-cache-dir poetry==1.8.3
 
-COPY . .
+WORKDIR /app
+
+COPY pyproject.toml poetry.lock ./
+COPY athena_federation ./athena_federation
 
 RUN poetry install --without dev --no-interaction
 
