@@ -1,4 +1,4 @@
-from .handler import lambda_handler
+from athena_federation.example.handler import lambda_handler
 
 TABLE_DEF = {"tableName": "demo", "schemaName": "sampledb"}
 
