@@ -12,7 +12,7 @@ example_handler = AthenaLambdaHandler(
 )
 
 
-def lambda_handler(event, context):
+def sample_handler(event, context):
     # For debugging purposes, we print both the event and the response :)
     print("EVENT", json.dumps(event))
     response = example_handler.process_event(event)

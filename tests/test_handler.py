@@ -1,4 +1,4 @@
-from athena_federation.example.handler import lambda_handler
+from example.handler import sample_handler
 
 TABLE_DEF = {"tableName": "demo", "schemaName": "sampledb"}
 
@@ -6,7 +6,7 @@ TABLE_DEF = {"tableName": "demo", "schemaName": "sampledb"}
 def test_handler():
     # This is a simple test that checks if the lambda handler can be called
     # without throwing an exception.
-    lambda_handler(
+    sample_handler(
         {
             "queryId": "1681559a-548b-4771-874c-2aa2ea7c39ab",
         },
@@ -16,7 +16,7 @@ def test_handler():
 
 
 def test_PingRequest():
-    result = lambda_handler(
+    result = sample_handler(
         {
             "@type": "PingRequest",
             "catalogName": "athena_python_sdk",
@@ -31,7 +31,7 @@ def test_PingRequest():
 
 
 def test_ListSchemasRequest():
-    result = lambda_handler(
+    result = sample_handler(
         {
             "@type": "ListSchemasRequest",
             "catalogName": "athena_python_sdk",
@@ -45,7 +45,7 @@ def test_ListSchemasRequest():
 
 
 def test_ListTablesRequest():
-    result = lambda_handler(
+    result = sample_handler(
         {
             "@type": "ListTablesRequest",
             "catalogName": "athena_python_sdk",
@@ -64,7 +64,7 @@ def test_ListTablesRequest():
 
 
 def test_GetTableRequest():
-    result = lambda_handler(
+    result = sample_handler(
         {
             "@type": "GetTableRequest",
             "catalogName": "athena_python_sdk",
@@ -81,7 +81,7 @@ def test_GetTableRequest():
 
 
 def test_GetTableLayoutRequest():
-    result = lambda_handler(
+    result = sample_handler(
         {
             "@type": "GetTableLayoutRequest",
             "catalogName": "athena_python_sdk",
@@ -96,7 +96,7 @@ def test_GetTableLayoutRequest():
 
 
 def test_GetSplitsRequest():
-    result = lambda_handler(
+    result = sample_handler(
         {
             "@type": "GetSplitsRequest",
             "catalogName": "athena_python_sdk",
@@ -127,7 +127,7 @@ def test_GetSplitsRequest():
 
 
 def test_ReadRecordsRequest():
-    table = lambda_handler(
+    table = sample_handler(
         {
             "@type": "GetTableRequest",
             "catalogName": "athena_python_sdk",
@@ -135,7 +135,7 @@ def test_ReadRecordsRequest():
         },
         {},
     )
-    source = lambda_handler(
+    source = sample_handler(
         {
             "@type": "GetSplitsRequest",
             "catalogName": "athena_python_sdk",
@@ -148,7 +148,7 @@ def test_ReadRecordsRequest():
     source["tableName"] = TABLE_DEF
     source["schema"] = table["schema"]
     source["split"] = source["splits"][0]
-    result = lambda_handler(
+    result = sample_handler(
         source,
         {},
     )

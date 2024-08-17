@@ -19,8 +19,9 @@ RUN touch README.md
 
 RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 COPY athena_federation ./athena_federation
+COPY athena_federation/example ./athena_federation/example
 
 # Only needed if you, e.g., install a script
 RUN poetry install --without dev 
 
-ENTRYPOINT ["poetry", "run", "python", "-m", "athena_federation.lambda_handler"]
+ENTRYPOINT ["poetry", "run", "python", "-m", "athena_federation.sample_handler"]

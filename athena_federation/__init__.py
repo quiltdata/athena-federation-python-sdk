@@ -8,5 +8,3 @@ from .lambda_handler import AthenaLambdaHandler  # noqa: F401
 from .models import *  # noqa: F401,F403
 from .sdk import AthenaFederationSDK  # noqa: F401
 from .utils import AthenaSDKUtils  # noqa: F401
-
-from .example.handler import lambda_handler  # noqa: F401
