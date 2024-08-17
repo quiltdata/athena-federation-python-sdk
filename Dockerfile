@@ -1,4 +1,4 @@
-FROM python:3.8-slim AS build
+FROM python:3.12.5-slim-bookworm AS build
 
 # Set our workdir
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY pyproject.toml /app/
 RUN poetry install
 
 ## Now use the compiled wheel in our lambda function
-FROM amazon/aws-lambda-python:3.12.0 AS lambda
+FROM arm64v8/python:3.12.5-slim-bookworm AS lambda
 
 ENV TARGET_BUCKET=replace_me
 

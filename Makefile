@@ -49,6 +49,9 @@ docker-status:
 docker-build:
 	docker build -t athena-federation .
 
+docker-debug:
+	docker build -t athena-federation . --no-cache --build-arg DEBUG=true --build-arg ARCHITECTURE=arm64
+
 # Run Docker container
 
 docker-run: docker-build

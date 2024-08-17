@@ -53,7 +53,7 @@ make watch
 make publish
 ```
 
-## Testing Connector Locally
+## Testing Docker Container Locally
 
 You can test your Lambda function locally using Lambda Docker images.
 Note that you must have the Docker daemon running on your machine.
@@ -63,6 +63,16 @@ You can test it by calling the CLI:
 
 ```shell
 docker ps
+```
+
+### Logging in to Docker
+
+You will need an account on, e.g., https://hub.docker.com.
+
+```shell
+sudo docker login
+# username
+# password
 ```
 
 ### Build Docker Images
