@@ -1,6 +1,18 @@
 .PHONY : help install update test lint clean build publish all
-PORT = 9000
+
+#
+# Variables
+#
+
 PROJ = athena_federation
+IMG = local/athena-federation
+CLIENT_PORT = 9000
+SERVER_PORT = 8080
+PORTMAP = -p $(CLIENT_PORT):$(SERVER_PORT)
+
+#
+# Development
+#
 
 all: test
 
@@ -14,7 +26,7 @@ update:
 
 # Run project tests
 test:
-	poetry run pytest --cov-report xml --cov=athena_federation
+	poetry run pytest --cov-reCLIENT_PORT xml --cov=athena_federation
 
 
 watch:
@@ -37,8 +49,9 @@ build: lint
 publish: build
 	poetry publish
 
-
-## Docker Commands
+#
+# Docker Commands
+#
 
 docker: docker-build docker-run lambda-ping
 
@@ -49,11 +62,11 @@ docker-status:
 
 # Build Docker image
 docker-build:
-	docker build -t $(PROJ) .
-	docker images | grep $(PROJ)
+	docker build -t $(IMG) .
+	docker images | grep $(IMG)
 
 docker-debug:
-	docker build -t $(PROJ) . --no-cache --build-arg DEBUG=true
+	docker build -t $(IMG) . --no-cache --build-arg DEBUG=true
 
 # One blog post claims this is necessary to get poetry to work in a docker container
 docker-poetry-config:
@@ -62,12 +75,12 @@ docker-poetry-config:
 # Run Docker container
 
 docker-run: docker-build
-	docker run -it -p $(PORT):$(PORT) $(PROJ)
+	docker run --rm $(PORTMAP) $(IMG)
 
-# Run Docker container in detached mode
+# Run Docker container in detached mode (untested)
 
 docker-detached:
-	docker run -d -p $(PORT):$(PORT) $(PROJ)
+	docker run -d  $(PORTMAP) $(PROJ)
 
 # Stop Docker container
 
