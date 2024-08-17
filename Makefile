@@ -50,7 +50,10 @@ docker-build:
 	docker build -t athena-federation .
 
 docker-debug:
-	docker build -t athena-federation . --no-cache --build-arg DEBUG=true --build-arg ARCHITECTURE=arm64
+	docker build -t athena-federation . --no-cache --build-arg DEBUG=true
+
+docker-poetry-config:
+	poetry config virtualenvs.in-project true --local
 
 # Run Docker container
 
