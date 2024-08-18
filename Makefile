@@ -22,8 +22,11 @@ RUN = container run $(PLAT)
 
 all: test
 
+lock:
+	poetry lock
+
 # Install project dependencies
-install:
+install: lock
 	poetry install
 
 # Update project dependencies
