@@ -13,14 +13,18 @@ ENV POETRY_NO_INTERACTION=1 \
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock ./
-RUN touch README.md
+RUN touch /app/README.md
+COPY athena_federation ./athena_federation
+RUN poetry build -f wheel
 
 FROM amazon/aws-lambda-python:3.12 AS lambda
-RUN pip install --no-cache-dir poetry==1.8.3
-COPY pyproject.toml poetry.lock ./
 
-RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
-COPY athena_federation ./athena_federation
+ENV TARGET_BUCKET=quilt-example
+
+COPY --from=build /app/dist/athena_federation-*-py3-none-any.whl /
+RUN pip install /athena_federation-*-py3-none-any.whl
+
+# RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 COPY example/ ./example
 RUN touch ./example/handler.py
 RUN ls -R ./

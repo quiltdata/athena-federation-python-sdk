@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "athena-federation"
-version = "0.1.0"
+version = "0.1.1"
 description = "Unofficial Python SDK for Athena Federation"
 authors = ["Damon P. Cortesi <DamonPCortesi@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
 license = "APACHE"
