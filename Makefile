@@ -5,11 +5,13 @@
 #
 
 PROJ = athena_federation
-IMG = local/athena-federation
+CONTAINER = athena-federation
+VERSION = $(shell poetry version | cut -d' ' -f2)
+IMG = local/$(CONTAINER):$(VERSION)
 CLIENT_PORT = 9000
 SERVER_PORT = 8080
 PORTMAP = -p $(CLIENT_PORT):$(SERVER_PORT)
-ARCH = $(shell uname -m)
+ARCH = amd64  # force to standard platform
 PLAT = --platform=linux/$(ARCH)
 BUILD = image build $(PLAT)
 RUN = container run $(PLAT)
@@ -67,7 +69,7 @@ docker-status:
 # Build Docker image
 docker-build:
 	docker $(BUILD) -t $(IMG) .
-	docker images | grep $(IMG)
+	docker images | grep $(CONTAINER)
 
 docker-debug:
 	docker $(BUILD) . --no-cache --build-arg DEBUG=true

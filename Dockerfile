@@ -28,7 +28,7 @@ RUN ls -R ./
 # Only needed if you, e.g., install a script
 # RUN poetry install --without dev 
 
-ENTRYPOINT ["poetry", "run", "python", "-m", "example.handler.sample_handler"]
+# ENTRYPOINT ["poetry", "run", "python", "-m", "example.handler.sample_handler"]
 
 # CMD [ "example.handler.sample_handler" ]
-# ENTRYPOINT ["poetry", "run", "python", "-m", "athena_federation.sample_handler"]
+ENTRYPOINT ["poetry", "run", "python", "-m", "athena_federation.main"]
