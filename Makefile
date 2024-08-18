@@ -59,7 +59,7 @@ publish: build
 # Docker Commands
 #
 
-docker: docker-build docker-detached lambda-ping
+docker: docker-stop docker-build docker-detached lambda-ping lambda-list-schemas
 
 # Verify Docker is running
 
@@ -87,11 +87,12 @@ docker-run: docker-build
 
 docker-detached:
 	docker $(RUN) -d  $(PORTMAP) $(IMG)
+	sleep 5
 
 # Stop Docker container
 
 docker-stop:
-	docker stop $(docker ps -q)
+	docker ps -q | xargs --no-run-if-empty docker stop
 
 
 # Ping lambda

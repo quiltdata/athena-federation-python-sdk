@@ -83,7 +83,7 @@ First, build our Docker image and run it.
 
 ```shell
 make docker-build
-make docker-run
+make docker-detached  # or docker-run for testing
 ```
 
 Then, we can execute a sample `PingRequest`.
