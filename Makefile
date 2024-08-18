@@ -49,10 +49,11 @@ clean:
 
 # Build project distribution
 build: lint
+	poetry check
 	poetry build
 
 # Publish project to PyPI
-publish: build
+publish: clean test build
 	poetry publish
 
 #

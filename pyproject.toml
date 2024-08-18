@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "athena-federation"
-version = "0.1.1"
+version = "0.1.2"
 description = "Unofficial Python SDK for Athena Federation"
 authors = ["Damon P. Cortesi <DamonPCortesi@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
 license = "APACHE"
@@ -10,7 +10,7 @@ repository = "https://github.com/quiltdata/athena-federation-python-sdk"
 documentation = "https://github.com/quiltdata/athena-federation-python-sdk"
 
 [tool.poetry.dependencies]
-python = "~3.12"
+python = "^3.12"
 pyarrow = "17.0.0"
 smart-open = "7.0.4"
 importlib-metadata = "<5.0.0"
