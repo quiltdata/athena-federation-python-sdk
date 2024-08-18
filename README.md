@@ -18,44 +18,7 @@ You can see an example implementation that [queries Google Sheets using Athena](
 
 - [Athena data source connector for Minio](https://github.com/Proximie/athena-connector-for-minio/)
 
-## Local Development
-
-This version now uses Poetry for dependency management.
-Everything is accessible via a Makefile.
-
-### Run Tests
-
-```shell
-make # test (with coverage)
-```
-
-### Build and Install
-
-```shell
-make install
-```
-
-### Linting
-
-```shell
-make lint
-```
-
-### Run tests continuously
-
-```shell
-make watch
-```
-
-### Push `athena_federation` to PyPI
-
-```shell
-make publish
-```
-
 ## Testing Connector Locally Using Docker
-
-**WARNING: This currently only works on ARM64 machines.**
 
 You can test your Lambda function locally using Lambda Docker images.
 Note that you must have a Docker daemon running on your machine.
@@ -106,7 +69,9 @@ make lambda-list-schemas
 {"@type": "ListSchemasResponse", "catalogName": "athena_python_sdk", "schemas": ["sampledb"], "requestType": "LIST_SCHEMAS"}
 ```
 
-## Creating your Lambda function
+## Deploying your Lambda function to AWS
+
+### Creating your Lambda function
 
 💁 _Please note these are manual instructions until a [serverless application](https://aws.amazon.com/serverless/serverlessrepo/) can be built._
 
@@ -192,13 +157,13 @@ aws lambda create-function \
     --package-type Image
 ```
 
-## Connect with Athena
+### Connect with Athena
 
 1. Choose "Data sources" on the top navigation bar in the Athena console and then click "Connect data source"
 
 1. Choose the Lambda function you just created and click `Connect`!
 
-## Updating the Lambda function
+### Updating the Lambda function
 
 If you update the Lambda function, re-run the build and push steps (updating the `IMAGE_TAG` variable) and then update the Lambda function:
 
@@ -206,4 +171,39 @@ If you update the Lambda function, re-run the build and push steps (updating the
 aws lambda update-function-code \
     --function-name athena-python-example \
     --image-uri ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/athena_example:${IMAGE_TAG}
+```
+
+## Local Development
+
+This version now uses Poetry for dependency management.
+Everything is accessible via a Makefile.
+
+### Run Tests
+
+```shell
+make # test (with coverage)
+```
+
+### Build and Install
+
+```shell
+make install
+```
+
+### Linting
+
+```shell
+make lint
+```
+
+### Run tests continuously
+
+```shell
+make watch
+```
+
+### Push `athena_federation` to PyPI
+
+```shell
+make publish
 ```
