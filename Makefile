@@ -32,7 +32,7 @@ update:
 
 # Run project tests
 test:
-	poetry run pytest --cov-reCLIENT_PORT xml --cov=athena_federation
+	poetry run pytest --cov-report xml --cov=athena_federation
 
 
 watch:
