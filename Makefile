@@ -59,7 +59,7 @@ publish: build
 # Docker Commands
 #
 
-docker: docker-build docker-run lambda-ping
+docker: docker-build docker-detached lambda-ping
 
 # Verify Docker is running
 
@@ -86,12 +86,12 @@ docker-run: docker-build
 # Run Docker container in detached mode (untested)
 
 docker-detached:
-	docker $(RUN) -d  $(PORTMAP) $(PROJ)
+	docker $(RUN) -d  $(PORTMAP) $(IMG)
 
 # Stop Docker container
 
 docker-stop:
-	docker stop $(docker ps -a -q)
+	docker stop $(docker ps -q)
 
 
 # Ping lambda
