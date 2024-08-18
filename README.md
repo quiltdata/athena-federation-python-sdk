@@ -20,42 +20,76 @@ You can see an example implementation that [queries Google Sheets using Athena](
 
 ## Local Development
 
-- Ensure you've got the `build` module install and SDK dependencies.
+This version now uses Poetry for dependency management.
+Everything is accessible via a Makefile.
+
+### Run Tests
 
 ```shell
-pip install build
-pip install -r requirements.txt
+make # test (with coverage)
 ```
 
-- Now make a wheel.
+### Build and Install
 
 ```shell
-python -m build
+make install
 ```
 
-This will create a file in `dist/`: `dist/athena_federation-0.1.0-py3-none-any.whl`
-
-Copy that file to your example repo and you can include it in your `requirements.txt` like so:
+### Linting
 
 ```shell
-unoffical-athena-federation-sdk @ file:///athena_federation-0.1.0-py3-none-any.whl
+make lint
 ```
 
-## Validating your connector
+### Run tests continuously
+
+```shell
+make watch
+```
+
+### Push `athena_federation` to PyPI
+
+```shell
+make publish
+```
+
+## Testing Connector Locally Using Docker
+
+**WARNING: This currently only works on ARM64 machines.**
 
 You can test your Lambda function locally using Lambda Docker images.
+Note that you must have a Docker daemon running on your machine.
+You can test it by calling the CLI:
+
+### Verifying Docker is running
+
+```shell
+docker ps
+```
+
+### Logging in to Docker
+
+You will need an account on, e.g., [Docker Hub](https://hub.docker.com).
+
+```shell
+sudo docker login
+# username
+# password
+```
+
+### Build Docker Images
 
 First, build our Docker image and run it.
 
 ```shell
-docker build -t local/athena-python-example .
-docker run --rm -p 9000:8080 local/athena-python-example
+make docker-build
+make docker-detached  # or docker-run for testing
 ```
 
 Then, we can execute a sample `PingRequest`.
 
 ```shell
-curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"@type": "PingRequest", "identity": {"id": "UNKNOWN", "principal": "UNKNOWN", "account": "123456789012", "arn": "arn:aws:iam::123456789012:root", "tags": {}, "groups": []}, "catalogName": "athena_python_sdk", "queryId": "1681559a-548b-4771-874c-2aa2ea7c39ab"}'
+make lambda-ping
 ```
 
 ```json
@@ -65,7 +99,7 @@ curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d
 We can also list schemas.
 
 ```shell
-curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"@type": "ListSchemasRequest", "identity": {"id": "UNKNOWN", "principal": "UNKNOWN", "account": "123456789012", "arn": "arn:aws:iam::123456789012:root", "tags": {}, "groups": []}, "catalogName": "athena_python_sdk", "queryId": "1681559a-548b-4771-874c-2aa2ea7c39ab"}'
+make lambda-list-schemas
 ```
 
 ```json
