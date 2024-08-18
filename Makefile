@@ -11,6 +11,8 @@ SERVER_PORT = 8080
 PORTMAP = -p $(CLIENT_PORT):$(SERVER_PORT)
 ARCH = $(shell uname -m)
 PLAT = --platform=linux/$(ARCH)
+BUILD = image build $(PLAT)
+RUN = container run $(PLAT)
 
 #
 # Development
@@ -41,7 +43,7 @@ lint:
 
 # Clean up generated files
 clean:
-	poetry run rm -rf $(PLAT) dist build
+	poetry run rm -rf dist build
 
 # Build project distribution
 build: lint
@@ -64,11 +66,11 @@ docker-status:
 
 # Build Docker image
 docker-build:
-	docker image build $(PLAT) -t $(IMG) .
+	docker $(BUILD) -t $(IMG) .
 	docker images | grep $(IMG)
 
 docker-debug:
-	docker build -t $(IMG) . --no-cache --build-arg DEBUG=true
+	docker $(BUILD) . --no-cache --build-arg DEBUG=true
 
 # One blog post claims this is necessary to get poetry to work in a docker container
 docker-poetry-config:
@@ -77,12 +79,12 @@ docker-poetry-config:
 # Run Docker container
 
 docker-run: docker-build
-	docker run --rm $(PORTMAP) $(IMG)
+	docker $(RUN) --rm $(PORTMAP) $(IMG)
 
 # Run Docker container in detached mode (untested)
 
 docker-detached:
-	docker run -d  $(PORTMAP) $(PROJ)
+	docker $(RUN) -d  $(PORTMAP) $(PROJ)
 
 # Stop Docker container
 
