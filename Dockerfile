@@ -1,7 +1,6 @@
 # adapted from https://dev.to/farcellier/package-a-poetry-project-in-a-docker-container-for-production-3b4m
 # and  https://medium.com/@albertazzir/blazing-fast-python-docker-builds-with-poetry-a78a66f5aed0
-
-FROM python:3.12.5-slim-bookworm AS build
+FROM amazon/aws-lambda-python:3.12 AS build
 
 # Get ready to build
 RUN pip install --no-cache-dir poetry==1.8.3
@@ -16,6 +15,9 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN touch README.md
 
+FROM amazon/aws-lambda-python:3.12 AS lambda
+RUN pip install --no-cache-dir poetry==1.8.3
+COPY pyproject.toml poetry.lock ./
 
 RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
 COPY athena_federation ./athena_federation

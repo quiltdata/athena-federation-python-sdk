@@ -9,6 +9,8 @@ IMG = local/athena-federation
 CLIENT_PORT = 9000
 SERVER_PORT = 8080
 PORTMAP = -p $(CLIENT_PORT):$(SERVER_PORT)
+ARCH = $(shell uname -m)
+PLAT = --platform=linux/$(ARCH)
 
 #
 # Development
@@ -39,7 +41,7 @@ lint:
 
 # Clean up generated files
 clean:
-	poetry run rm -rf dist build
+	poetry run rm -rf $(PLAT) dist build
 
 # Build project distribution
 build: lint
@@ -62,7 +64,7 @@ docker-status:
 
 # Build Docker image
 docker-build:
-	docker build -t $(IMG) .
+	docker image build $(PLAT) -t $(IMG) .
 	docker images | grep $(IMG)
 
 docker-debug:
