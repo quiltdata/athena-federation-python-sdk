@@ -1,8 +1,6 @@
 """Version number of our project"""
 
-import toml
-
-__version__ = toml.load("pyproject.toml")["tool"]["poetry"]["version"]
+__version__ = "0.1.3"
 
 # Import the SDK
 from .athena_data_source import AthenaDataSource  # noqa: F401
