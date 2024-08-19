@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "athena-federation"
-version = "0.1.2"
+version = "0.1.3"
 description = "Unofficial Python SDK for Athena Federation"
-authors = ["Damon P. Cortesi <DamonPCortesi@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
+authors = ["Damon P. Cortesi <d.lifehacker@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
 license = "APACHE"
 readme = "README.md"
-homepage = "https://github.com/quiltdata/athena-federation-python-sdk"
-repository = "https://github.com/quiltdata/athena-federation-python-sdk"
-documentation = "https://github.com/quiltdata/athena-federation-python-sdk"
+homepage = "https://github.com/dacort/athena-federation-python-sdk"
+repository = "https://github.com/dacort/athena-federation-python-sdk"
+documentation = "https://github.com/dacort/athena-federation-python-sdk"
 
 [tool.poetry.dependencies]
 python = "^3.12"

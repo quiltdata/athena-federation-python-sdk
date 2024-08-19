@@ -1,6 +1,6 @@
 """Version number of our project"""
 
-__version__ = "0.0.3"
+__version__ = "0.1.3"
 
 # Import the SDK
 from .athena_data_source import AthenaDataSource  # noqa: F401
