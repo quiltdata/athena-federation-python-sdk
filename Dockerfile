@@ -11,10 +11,11 @@ ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_CREATE=1 \
     POETRY_CACHE_DIR=/tmp/poetry_cache
 
-COPY pyproject.toml poetry.lock ./
+COPY pyproject.toml poetry.toml poetry.lock ./
 RUN touch /app/README.md
 COPY athena_federation ./athena_federation
 RUN poetry build -f wheel
+COPY example  ./example
 
 FROM amazon/aws-lambda-python:3.12 AS lambda
 WORKDIR /app
@@ -24,6 +25,8 @@ ENV TARGET_BUCKET=quilt-example
 COPY --from=build /app/dist/athena_federation-*-py3-none-any.whl /
 RUN pip install --no-cache-dir /athena_federation-*-py3-none-any.whl
 
-COPY example/  ${LAMBDA_TASK_ROOT}/example
+COPY pyproject.toml poetry.toml poetry.lock ${LAMBDA_TASK_ROOT}/
+COPY example  ${LAMBDA_TASK_ROOT}/example
+RUN ls -R ./
 
 CMD [ "example.handler.sample_handler" ]
