@@ -2,12 +2,12 @@
 name = "athena-federation"
 version = "0.1.2"
 description = "Unofficial Python SDK for Athena Federation"
-authors = ["Damon P. Cortesi <DamonPCortesi@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
+authors = ["Damon P. Cortesi <d.lifehacker@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
 license = "APACHE"
 readme = "README.md"
-homepage = "https://github.com/quiltdata/athena-federation-python-sdk"
-repository = "https://github.com/quiltdata/athena-federation-python-sdk"
-documentation = "https://github.com/quiltdata/athena-federation-python-sdk"
+homepage = "https://github.com/dacort/athena-federation-python-sdk"
+repository = "https://github.com/dacort/athena-federation-python-sdk"
+documentation = "https://github.com/dacort/athena-federation-python-sdk"
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -15,6 +15,7 @@ pyarrow = "17.0.0"
 smart-open = "7.0.4"
 importlib-metadata = "<5.0.0"
 pytest-watcher = "^0.4.2"
+toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
