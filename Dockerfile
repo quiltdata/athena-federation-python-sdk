@@ -24,6 +24,6 @@ ENV TARGET_BUCKET=quilt-example
 COPY --from=build /app/dist/athena_federation-*-py3-none-any.whl /
 RUN pip install --no-cache-dir /athena_federation-*-py3-none-any.whl
 
-COPY example/ ./example
+COPY example/  ${LAMBDA_TASK_ROOT}/example
 
 CMD [ "example.handler.sample_handler" ]
