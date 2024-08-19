@@ -15,7 +15,6 @@ COPY pyproject.toml poetry.lock ./
 RUN touch /app/README.md
 COPY athena_federation ./athena_federation
 RUN poetry build -f wheel
-COPY example  ./example
 
 FROM amazon/aws-lambda-python:3.12 AS lambda
 WORKDIR /app
