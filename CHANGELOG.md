@@ -1,5 +1,9 @@
 # CHANGELOG.md
 
+## [0.1.6] - 2024-08-24
+
+- Move py.typed into package folder
+
 ## [0.1.5] - 2024-08-24
 
 - Add py.typed file to support type checking
