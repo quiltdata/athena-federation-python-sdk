@@ -57,9 +57,11 @@ class AthenaDataSource(ABC):
         The default implementation uses the `columns` method to get a list of
         of columns and returns them all of type `string`.
         """
-        return pa.schema(
-            [(col, pa.string()) for col in self.columns(database_name, table_name)]
-        )
+        string_schema: List[pa.Field[Any]] = [
+            pa.field(col, pa.string())
+            for col in self.columns(database_name, table_name)
+        ]
+        return pa.schema(string_schema)
 
     def splits(self, database_name: str, table_name: str) -> List[Dict]:
         """

@@ -8,7 +8,6 @@ from athena_federation.utils import AthenaSDKUtils
 
 class AthenaLambdaHandler(AthenaFederationSDK):
     def __init__(self, data_source: AthenaDataSource, spill_bucket: str) -> None:
-        super().__init__()
         print(
             f'Initializing Athena data source "{data_source}", spill bucket: s3://{spill_bucket}'
         )
@@ -113,13 +112,14 @@ class AthenaLambdaHandler(AthenaFederationSDK):
         # Otherwise we take the response and wrap it in a list.
         records = self.data_source.records(database_name, table_name, split_properties)
         if isinstance(records, dict):
-            records = [records]
+            records = (record for record in [records])
 
         # Convert the records to pyarrow records
         # Regardless of the return type, we stream it so we can spill to S3.
         # If the resulting batch is <6MB, we can return it immediately.
         writer = BatchWriter(split.get("spillLocation"), schema)
         for record_batch in records:
+            assert isinstance(record_batch, dict)
             writer.write_rows(record_batch)
 
         writer.close()
