@@ -4,7 +4,7 @@ from typing import Union
 import athena_federation.models as models
 
 
-class AthenaFederationSDK(ABC):
+class AthenaFederationSDK(ABC):  # pragma: no cover
     """
     AthenaFederationSDK is a Python implmementation of the Athena Federated Query SDK.
 

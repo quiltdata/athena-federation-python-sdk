@@ -37,6 +37,9 @@ update:
 test:
 	poetry run pytest --cov-report xml --cov=athena_federation
 
+coverage:
+	poetry run pytest --cov-report html --cov=athena_federation
+	open htmlcov/index.html
 
 watch:
 	poetry run ptw . --now
