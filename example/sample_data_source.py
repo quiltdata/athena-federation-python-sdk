@@ -32,6 +32,9 @@ class SampleDataSource(AthenaDataSource):
             {"name": "split2", "action": "spill"},
         ]
 
+    def transpose_data(self, cols: List[str], records: List[List[Any]]) -> Dict[str, List[Any]]:
+        return dict(zip(cols, list(zip(*records))))
+
     def records(
         self, database: str, table: str, split: Mapping[str, str]
     ) -> Dict[str, List[Any]]:
@@ -47,5 +50,4 @@ class SampleDataSource(AthenaDataSource):
         # Demonstrate how splits work by generating a huge response. :)
         if split.get("action", "") == "spill":
             records = records * 4000
-        # We unfortunately need to transpose the data - we should add a helper for this
-        return dict(zip(self.columns(database, table), list(zip(*records))))
+        return self.transpose_data(self.columns(database, table), records)
