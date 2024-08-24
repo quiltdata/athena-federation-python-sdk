@@ -27,9 +27,7 @@ class BatchWriter:
         return self._spilled
 
     def write_rows(self, data: dict[str, list[Any]]):
-        array_data = [
-            pa.array(data[name]) for name in self._schema.names
-        ]
+        array_data = [pa.array(data[name]) for name in self._schema.names]
         record_batch = pa.RecordBatch.from_arrays(arrays=array_data, schema=self._schema)  # type: ignore
         assert record_batch is not str
         self._batch_size += record_batch.nbytes
