@@ -11,6 +11,13 @@ class SampleDataSource(AthenaDataSource):
     A hard-coded example that shows the different methods you can implement.
     """
 
+    @staticmethod
+    def TransposeData(columns: List[str], data: List[List[Any]]) -> Dict[str, List[Any]]:
+        """
+        Transpose the data so that it is a dictionary of columns.
+        """
+        return dict(zip(columns, list(zip(*data))))
+
     def __init__(self):
         super().__init__()
 
@@ -32,9 +39,6 @@ class SampleDataSource(AthenaDataSource):
             {"name": "split2", "action": "spill"},
         ]
 
-    def transpose_data(self, cols: List[str], records: List[List[Any]]) -> Dict[str, List[Any]]:
-        return dict(zip(cols, list(zip(*records))))
-
     def records(
         self, database: str, table: str, split: Mapping[str, str]
     ) -> Dict[str, List[Any]]:
@@ -50,4 +54,4 @@ class SampleDataSource(AthenaDataSource):
         # Demonstrate how splits work by generating a huge response. :)
         if split.get("action", "") == "spill":
             records = records * 4000
-        return self.transpose_data(self.columns(database, table), records)
+        return self.TransposeData(self.columns(database, table), records)
