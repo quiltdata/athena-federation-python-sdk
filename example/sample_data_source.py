@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Mapping
+from typing import Any, Dict, List, Mapping, Iterable
 
 import pyarrow as pa
 from athena_federation.athena_data_source import AthenaDataSource
@@ -12,11 +12,14 @@ class SampleDataSource(AthenaDataSource):
     """
 
     @staticmethod
-    def TransposeData(columns: List[str], data: List[List[Any]]) -> Dict[str, List[Any]]:
+    def TransposeData(
+        columns: List[str], data: List[List[Any]]
+    ) -> Dict[str, List[Any]]:
         """
         Transpose the data so that it is a dictionary of columns.
         """
-        return dict(zip(columns, list(zip(*data))))
+        zipped: Iterable[list[Any]] = zip(*data)  # type: ignore
+        return dict(zip(columns, list(zipped)))
 
     def __init__(self):
         super().__init__()
