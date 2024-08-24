@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
+from typing import Union
 
 import athena_federation.models as models
 
 
-class AthenaFederationSDK(ABC):
+class AthenaFederationSDK(ABC):  # pragma: no cover
     """
     AthenaFederationSDK is a Python implmementation of the Athena Federated Query SDK.
 
@@ -54,6 +55,8 @@ class AthenaFederationSDK(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def ReadRecordsRequest(self) -> models.ReadRecordsResponse:
+    def ReadRecordsRequest(
+        self,
+    ) -> Union[models.ReadRecordsResponse, models.RemoteReadRecordsResponse]:
         """The actual data!"""
         raise NotImplementedError

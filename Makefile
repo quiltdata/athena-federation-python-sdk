@@ -37,18 +37,22 @@ update:
 test:
 	poetry run pytest --cov-report xml --cov=athena_federation
 
+coverage:
+	poetry run pytest --cov-report html --cov=athena_federation
+	open htmlcov/index.html
 
 watch:
 	poetry run ptw . --now
 
 # Lint code using flake8
 lint:
-	black .
-	flake8
+	poetry run black $(PROJ)
+	poetry run flake8
+	poetry run mypy $(PROJ)
 
 # Clean up generated files
 clean:
-	poetry run rm -rf dist build
+	poetry run rm -rf dist build *cov* .*cache
 
 # Build project distribution
 build: lint

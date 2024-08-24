@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "athena-federation"
-version = "0.1.4"
+version = "0.1.5"
 description = "Unofficial Python SDK for Athena Federation"
 authors = ["Damon P. Cortesi <d.lifehacker@gmail.com>", "Ernest Prabhakar <ernest@quiltdata.io>"]
 license = "APACHE"
@@ -15,12 +15,14 @@ pyarrow = "17.0.0"
 smart-open = "7.0.4"
 importlib-metadata = "<5.0.0"
 pytest-watcher = "^0.4.2"
+pyarrow-stubs = "^10.0.1.9"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
 pytest-cov = "^2.11"
 black = "^24.3"
-flake8 = "^4.0"
+flake8 = "^7.0"
+mypy = "^1.11.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
