@@ -5,6 +5,7 @@
 - Add py.typed file to support type checking
 - Add `mypy` to `make lint`
 - Fix type errors
+- Add helpers
 
 ## [0.1.4] - 2024-08-23
 

@@ -52,7 +52,7 @@ lint:
 
 # Clean up generated files
 clean:
-	poetry run rm -rf dist build
+	poetry run rm -rf dist build *cov* .*cache
 
 # Build project distribution
 build: lint
