@@ -43,8 +43,9 @@ watch:
 
 # Lint code using flake8
 lint:
-	black .
-	flake8
+	poetry run black $(PROJ)
+	poetry run flake8
+	poetry run mypy $(PROJ)
 
 # Clean up generated files
 clean:
