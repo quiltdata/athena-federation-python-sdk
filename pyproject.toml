@@ -20,7 +20,7 @@ pyarrow-stubs = "^10.0.1.9"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
 pytest-cov = "^2.11"
-black = "^24.3"
+black = "^26.3"
 flake8 = "^7.0"
 mypy = "^1.11.1"
 
